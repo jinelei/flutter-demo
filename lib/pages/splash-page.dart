@@ -34,8 +34,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return new LayoutBuilder(
-        builder: (context, constraints) =>
-        new NotificationListener(
+        builder: (context, constraints) => new NotificationListener(
             onNotification: (ScrollNotification note) {
               setState(() {
                 _currentPage:
@@ -47,12 +46,11 @@ class _SplashPageState extends State<SplashPage> {
                   parent: const ClampingScrollPhysics()),
               controller: _pageController,
               childrenDelegate: new SliverChildBuilderDelegate(
-                      (context, index) =>
-                  new _SimplePage(
-                    index,
-                    parallaxOffset:
-                    constraints.maxWidth / 2.0 * (index - _currentPage),
-                  ),
+                  (context, index) => new _SimplePage(
+                        index,
+                        parallaxOffset:
+                            constraints.maxWidth / 2.0 * (index - _currentPage),
+                      ),
                   childCount: 3),
             )));
   }
