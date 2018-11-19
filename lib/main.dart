@@ -13,7 +13,8 @@ var globalSetting;
 void main() {
   debugPaintSizeEnabled = !true;
   globalSetting = {
-    'test': true
+    'test': true,
+    'username': 'jinelei',
   };
   return runApp(MyApp());
 }

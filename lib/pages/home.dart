@@ -20,11 +20,13 @@ class _HomePageState extends State<HomePage>
   var _searchQuery;
   var tabController;
   var test;
+  var username;
 
   @override
   void initState() {
     super.initState();
     this.test = globalSetting['test'];
+    this.username = globalSetting['username'];
     this.appBarTitle = '主页';
     this.tabController = new TabController(length: 3, vsync: this);
     this.tabController.addListener(() {
@@ -106,7 +108,42 @@ class _HomePageState extends State<HomePage>
       child: new Container(
         child: new Column(
           children: <Widget>[
-            new Image.network(imgUrl),
+            new Container(
+              padding: EdgeInsets.only(top: 40.0, bottom: 20.0),
+              decoration: new BoxDecoration(
+                image: new DecorationImage(
+                    image: new NetworkImage(imgUrl), fit: BoxFit.fill),
+              ),
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new Container(
+                        width: 100.0,
+                        height: 100.0,
+//                margin: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 120.0),
+                        decoration: new BoxDecoration(
+                          color: Colors.white,
+                          image: new DecorationImage(
+                              image: new NetworkImage(
+                                  'https://b-ssl.duitang.com/uploads/item/201602/15/20160215235057_EU3tS.thumb.700_0.jpeg'),
+                              fit: BoxFit.cover),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      new Text(
+                        this.username,
+                        style: new TextStyle(fontSize: 40, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             _buildDrawerItemView(Icons.home, '首页', 'drawer_key_index'),
             new Divider(),
             _buildDrawerItemView(Icons.settings, '设置', 'drawer_key_settings'),
