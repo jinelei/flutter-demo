@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 
-class LogoPage extends StatefulWidget {
-  final String pageText;
-
-  LogoPage(this.pageText);
-
+class LogoComponent extends StatefulWidget {
   @override
-  createState() => new _LogoPageState(this.pageText);
+  createState() => new _LogoComponentState();
 }
 
-class _LogoPageState extends State<LogoPage>
+class _LogoComponentState extends State<LogoComponent>
     with SingleTickerProviderStateMixin {
-  final String pageText;
   Animation<double> animationDouble;
   Animation<Color> animationColor;
   AnimationController controller;
-
-  _LogoPageState(this.pageText);
 
   @override
   void initState() {
@@ -31,7 +24,6 @@ class _LogoPageState extends State<LogoPage>
             setState(() {});
           })
           ..addStatusListener((status) {
-            print(status);
             if (status == AnimationStatus.dismissed) {
               controller.forward();
             }
@@ -42,7 +34,6 @@ class _LogoPageState extends State<LogoPage>
         setState(() {});
       })
       ..addStatusListener((status) {
-        print(status);
         if (status == AnimationStatus.dismissed) {
           controller.forward();
         }
@@ -56,6 +47,20 @@ class _LogoPageState extends State<LogoPage>
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+          onTap: _animationSwitchStatus,
+          child: new Container(
+            margin: new EdgeInsets.symmetric(vertical: 10.0),
+            height: animationDouble.value,
+            width: animationDouble.value,
+            child: new FlutterLogo(),
+          )),
+    );
+  }
+
   _animationSwitchStatus() {
     print(controller.isAnimating);
     if (controller.isAnimating) {
@@ -63,24 +68,5 @@ class _LogoPageState extends State<LogoPage>
     } else {
       controller.forward();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(this.pageText, style: new TextStyle(color: animationColor.value),),
-      ),
-      body: Center(
-        child: GestureDetector(
-            onTap: _animationSwitchStatus,
-            child: new Container(
-              margin: new EdgeInsets.symmetric(vertical: 10.0),
-              height: animationDouble.value,
-              width: animationDouble.value,
-              child: new FlutterLogo(),
-            )),
-      ),
-    );
   }
 }
